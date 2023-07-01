@@ -3,6 +3,7 @@
 # Development Enviroment
 - OS : Debian 11
 - IDE : Visual Studio Code
+- Language : Go
 
 # To run the program
 - Make sure `docker compose` is installed in your machine
