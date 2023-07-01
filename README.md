@@ -33,7 +33,7 @@ Exec `make`
 # To add new api
 1. Create a new file and named as `xxx_api.go`  
 2. Add the following new code snippet in the file.Example:
-`package api
+package api
 
 import (
 	"github.com/gin-gonic/gin"
