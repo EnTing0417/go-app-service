@@ -1,0 +1,138 @@
+definitions:
+  model.RefreshTokenResponseBoby:
+    properties:
+      expire_at:
+        type: string
+      refresh_token:
+        type: string
+      token:
+        type: string
+    type: object
+  model.ToDoViewModel:
+    properties:
+      _id:
+        type: string
+      completed:
+        type: boolean
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      description:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/v1/to-do:
+    post:
+      consumes:
+      - application/json
+      description: create a new to-do item
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ToDoViewModel'
+      summary: create a new to-do item
+      tags:
+      - to-do
+  /api/v1/to-do/{id}:
+    put:
+      consumes:
+      - application/json
+      description: update to-do item
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ToDoViewModel'
+      summary: update to-do item
+      tags:
+      - to-do
+  /api/v1/to-do/delete:
+    post:
+      consumes:
+      - application/json
+      description: delete single/multiple to-do items
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      summary: delete single/multiple to-do items
+      tags:
+      - to-do
+  /api/v1/to-do/list/{user_id}:
+    get:
+      consumes:
+      - application/json
+      description: list to-do items by user
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.ToDoViewModel'
+            type: array
+      summary: list to-do items by user
+      tags:
+      - to-do
+  /api/v1/token/refresh:
+    post:
+      consumes:
+      - application/json
+      description: refresh auth token
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.RefreshTokenResponseBoby'
+      summary: refresh auth token
+      tags:
+      - authentication
+swagger: "2.0"
