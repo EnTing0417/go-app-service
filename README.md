@@ -25,16 +25,17 @@
 - Install `make` command and add to path variable
 
 For Linux:
-`sudo apt-get update`
-`sudo apt-get -y install make`
+1. `sudo apt-get update`
+2. `sudo apt-get -y install make`
 
 Exec `make`
 
 # To add new api
 1. Create a new file and named as `xxx_api.go`  
 2. Add the following new code snippet in the file.Example:
-`package api
-
+   
+  ```
+package api
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -55,7 +56,7 @@ func Helloworld(c *gin.Context)  {
 		"message": "hello world",
 	})
  }
-`
+```
 3. `go get -u github.com/swaggo/swag/cmd/swag`
 4. `export PATH=$(go env GOPATH)/bin:$PATH` OR update .bashrc for path variables
 5. `swag init`
