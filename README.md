@@ -1,12 +1,12 @@
 # go-app-service
 
 # Development Enviroment
-OS : Debian 11
-IDE : Visual Studio Code
+- OS : Debian 11
+- IDE : Visual Studio Code
 
 # To run the program
-Make sure `docker compose` is installed in your machine
-Execute `docker compose up`
+- Make sure `docker compose` is installed in your machine
+- Execute `docker compose up`
 
 # To test the app
 1. Obtain bearer token from the callback of GET http://localhost:8080/google/login after the server is up
@@ -21,7 +21,7 @@ Execute `docker compose up`
 - POST http://localhost:8080/api/v1/token/refresh
 
 # To build the app
-Install `make` command and add to path variable
+- Install `make` command and add to path variable
 
 For Linux:
 `sudo apt-get update`
