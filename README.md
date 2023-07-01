@@ -33,14 +33,14 @@ Exec `make`
 # To add new api
 1. Create a new file and named as `xxx_api.go`  
 2. Add the following new code snippet in the file.Example:
-package api
+`package api
 
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
  )
  
-``// @BasePath /api/v1
+// @BasePath /api/v1
 // PingExample godoc
 // @Summary ping example
 // @Schemes
@@ -54,7 +54,7 @@ func Helloworld(c *gin.Context)  {
 	c.JSON(http.StatusOK,gin.H{
 		"message": "hello world",
 	})
- }`
+ }
 `
 3. `go get -u github.com/swaggo/swag/cmd/swag`
 4. `export PATH=$(go env GOPATH)/bin:$PATH` OR update .bashrc for path variables
