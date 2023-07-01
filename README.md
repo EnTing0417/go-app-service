@@ -33,7 +33,7 @@ Exec `make`
 # To add new api
 1. Create a new file and named as `xxx_api.go`  
 2. Add the following new code snippet in the file.Example:
-package api
+`package api
 
 import (
 	"github.com/gin-gonic/gin"
@@ -55,7 +55,7 @@ func Helloworld(c *gin.Context)  {
 		"message": "hello world",
 	})
  }`
-
+`
 3. `go get -u github.com/swaggo/swag/cmd/swag`
 4. `export PATH=$(go env GOPATH)/bin:$PATH` OR update .bashrc for path variables
 5. `swag init`
