@@ -1,4 +1,4 @@
-package api
+package todo
 
 import (
 	"github.com/gin-gonic/gin"
@@ -56,7 +56,6 @@ func ToDoCreate(c *gin.Context, client *mongo.Client)  {
 
 	criteria := map[string]interface{}{
 		"email": claimMap["email"],
-		"deleted_at": nil,
 	}
 
 	user, _ := mongodb.FindBy(client,mongodb.COLLECTION_USER,criteria)

@@ -1,4 +1,4 @@
-package api
+package auth
 
 import (
 	"go.mongodb.org/mongo-driver/mongo"

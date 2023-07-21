@@ -46,10 +46,8 @@ const docTemplate = `{
                         }
                     }
                 }
-            }
-        },
-        "/api/v1/to-do/delete": {
-            "post": {
+            },
+            "delete": {
                 "description": "delete single/multiple to-do items",
                 "consumes": [
                     "application/json"
@@ -68,6 +66,17 @@ const docTemplate = `{
                         "name": "Authorization",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "csv",
+                        "description": "ids collection",
+                        "name": "_ids",
+                        "in": "query",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -77,7 +86,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/to-do/list/{user_id}": {
+        "/api/v1/to-do/list": {
             "get": {
                 "description": "list to-do items by user",
                 "consumes": [

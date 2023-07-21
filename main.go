@@ -1,66 +1,66 @@
 package main
 
 import (
-   "github.com/gin-gonic/gin"
-   docs "github.com/go-app-service/docs"
-   api "github.com/go-app-service/api"
-   swaggerfiles "github.com/swaggo/files"
-   ginSwagger "github.com/swaggo/gin-swagger"
-   model "github.com/go-app-service/model"
-   "github.com/EnTing0417/go-lib/mongodb"
+	"github.com/EnTing0417/go-lib/mongodb"
+	"github.com/gin-gonic/gin"
+	auth "github.com/go-app-service/api/auth"
+	todo "github.com/go-app-service/api/todo"
+	docs "github.com/go-app-service/docs"
+	model "github.com/go-app-service/model"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-
-func main()  {
+func main() {
 	client := mongodb.Init()
 	mongodb.Connect(client)
-   defer mongodb.Disconnect(client)
+	defer mongodb.Disconnect(client)
 
-   r := gin.Default()
-   
-   protectedRoutes := []string{
-      "/to-do",
-      "/token/refresh",
-   }
+	r := gin.Default()
 
-   r.Use(model.AuthMiddleware(protectedRoutes))
-   docs.SwaggerInfo.BasePath = "/"
+	protectedRoutes := []string{
+		"/to-do",
+		"/token/refresh",
+	}
 
-   ToDoCreateHandler := func(c *gin.Context){
-      api.ToDoCreate(c,client)
-   }
-   ToDoUpdateHandler := func(c *gin.Context){
-      api.ToDoUpdate(c,client)
-   }
-   ToDoDeleteHandler := func(c *gin.Context){
-      api.ToDoDelete(c,client)
-   }
+	r.Use(model.AuthMiddleware(protectedRoutes))
+	docs.SwaggerInfo.BasePath = "/"
 
-   ToDoListHandler := func(c *gin.Context){
-      api.ToDoList(c,client)
-   }
+	ToDoCreateHandler := func(c *gin.Context) {
+		todo.ToDoCreate(c, client)
+	}
+	ToDoUpdateHandler := func(c *gin.Context) {
+		todo.ToDoUpdate(c, client)
+	}
+	ToDoDeleteHandler := func(c *gin.Context) {
+		todo.ToDoDelete(c, client)
+	}
 
-   GoogleCallbackHandler := func(c *gin.Context){
-      api.GoogleCallback(c,client)
-   }
+	ToDoListHandler := func(c *gin.Context) {
+		todo.ToDoList(c, client)
+	}
 
-   RefreshTokenHandler := func(c *gin.Context){
-      api.AuthTokenRefresh(c,client)
-   }
+	GoogleCallbackHandler := func(c *gin.Context) {
+		auth.GoogleCallback(c, client)
+	}
 
-   v1 := r.Group("/api/v1")
-   {
-      v1.POST("/to-do", ToDoCreateHandler)
-      v1.PUT("/to-do/:id", ToDoUpdateHandler)
-      v1.POST("/to-do/delete",ToDoDeleteHandler)
-      v1.GET("/to-do/list/:user_id", ToDoListHandler)
-      v1.POST("/token/refresh", RefreshTokenHandler)
-   }
+	RefreshTokenHandler := func(c *gin.Context) {
+		auth.AuthTokenRefresh(c, client)
+	}
 
-   r.GET("/google/login", api.GoogleLogin)
-   r.GET("/google/callback", GoogleCallbackHandler)
+	v1 := r.Group("/api/v1")
+	{
+		v1.POST("/to-do", ToDoCreateHandler)
+		v1.PUT("/to-do/:id", ToDoUpdateHandler)
+		v1.DELETE("/to-do", ToDoDeleteHandler)
+		v1.GET("/to-do/list", ToDoListHandler)
+		v1.POST("/token/refresh", RefreshTokenHandler)
+	}
 
-   r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
-   r.Run(":8080")
+	r.GET("/google/login", auth.GoogleLogin)
+	r.GET("/google/callback", GoogleCallbackHandler)
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	r.Run(":8080")
 
 }

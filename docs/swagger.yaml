@@ -31,6 +31,32 @@ info:
   contact: {}
 paths:
   /api/v1/to-do:
+    delete:
+      consumes:
+      - application/json
+      description: delete single/multiple to-do items
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - collectionFormat: csv
+        description: ids collection
+        in: query
+        items:
+          type: string
+        name: _ids
+        required: true
+        type: array
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      summary: delete single/multiple to-do items
+      tags:
+      - to-do
     post:
       consumes:
       - application/json
@@ -72,26 +98,7 @@ paths:
       summary: update to-do item
       tags:
       - to-do
-  /api/v1/to-do/delete:
-    post:
-      consumes:
-      - application/json
-      description: delete single/multiple to-do items
-      parameters:
-      - description: Bearer token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-      summary: delete single/multiple to-do items
-      tags:
-      - to-do
-  /api/v1/to-do/list/{user_id}:
+  /api/v1/to-do/list:
     get:
       consumes:
       - application/json
