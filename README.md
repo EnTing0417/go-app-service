@@ -15,8 +15,8 @@
 2. Use the bearer token to access the following api:
 - POST http://localhost:8080/api/v1/todo
 - PUT http://localhost:8080/api/v1/todo/:id
-- POST http://localhost:8080/api/v1/to-do/delete
-- GET http://localhost:8080/api/v1/to-do-list/:user_id
+- DEL http://localhost:8080/api/v1/to-do
+- GET http://localhost:8080/api/v1/to-do-list
 
 3. To refresh the token for specific session: 
 - POST http://localhost:8080/api/v1/token/refresh
